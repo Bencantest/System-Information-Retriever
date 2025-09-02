@@ -1,35 +1,47 @@
-System Information Retriever 
-This is a simple and fast Python program that retrieves and displays detailed system information for your CPU, GPU, and RAM. It's designed to be used on Windows and uses the psutil and wmi libraries for efficient data retrieval.
+# System Information Retriever
 
-Prerequisites
-You'll need to have Python 3 installed on your system.
+A simple and fast Python program that retrieves and displays detailed system information for your **CPU**, **GPU**, and **RAM**.  
+Designed primarily for **Windows**, this script uses the `psutil` and `wmi` libraries for efficient data retrieval.
 
-Getting Started
-Follow these steps to get a copy of the project up and running on your local machine.
+---
 
-Installation
-Clone this repository to your local machine:
+##  Prerequisites
 
-Bash
+- Python 3 must be installed on your system.
+- The script was developed and tested with **Python 3**.
 
-git clone https://github.com/Bencantest/SysInfoRetriever.git
-Navigate to the project directory:
+---
 
-Bash
+##  Getting Started
 
-cd SysInfoRetriever
-Install the required libraries:
+To get a copy of this project up and running on your local machine, follow these steps:
 
-Bash
+###  Installation
 
-pip install -r requirements.txt
-Usage
-To run the program, simply execute the following command from the project directory:
+1. **Clone this repository** to your local machine:
 
-Bash
+   ```bash
+   git clone https://github.com/Bencantest/SysInfoRetriever.git
 
-python get_sys_info.py
-The program will then print your system's specifications to the console in a clear, organized format.
+2.  **Navigate to the project directory:**
 
-Note 💡
-This program utilizes Windows-specific libraries (wmi) to get detailed information about the GPU and RAM speed. If you run this script on a non-Windows operating system, it will fall back to using psutil for basic CPU and RAM information, but GPU details will not be available.
+     cd SysInfoRetriever
+
+3.  **Install required libraries:**   
+    pip install -r requirements.txt
+
+4.  **Usage**
+  To run the program, execute the following command from the project directory:
+      python get_sys_info.py
+
+5. **⚠️ Note**
+
+This program utilizes Windows-specific libraries (specifically wmi) to retrieve detailed GPU and RAM speed information.
+
+On non-Windows systems, the script falls back to using psutil to retrieve basic CPU and RAM information.
+
+GPU details will not be available on non-Windows platforms.
+
+
+
+      
