@@ -1,47 +1,84 @@
 # System Information Retriever
 
-A simple and fast Python program that retrieves and displays detailed system information for your **CPU**, **GPU**, and **RAM**.  
-Designed primarily for **Windows**, this script uses the `psutil` and `wmi` libraries for efficient data retrieval.
+A simple, fast Python tool that retrieves and displays detailed system information:
+**CPU, GPU, RAM, Disk, Network, Battery, OS/BIOS, and Uptime.**
+
+Runs on any OS. On **Windows**, it uses `wmi` for rich detail (CPU model, GPU VRAM,
+RAM stick speed/type, motherboard, BIOS, SSD/HDD detection). On **Linux/macOS**, it
+falls back to `psutil`/`platform` for a solid overview (GPU model detail is
+Windows-only).
 
 ---
 
-##  Prerequisites
+## Features
 
-- Python 3 must be installed on your system.
-- The script was developed and tested with **Python 3**.
+- **CPU** — cores, threads, current usage %, model name and clock speed (Windows)
+- **GPU** — name and VRAM (Windows only)
+- **RAM** — total/used/available, usage %, per-stick speed & type (Windows)
+- **Disk** — every mounted partition: capacity, free space, usage %, and SSD/HDD type
+- **Network** — interfaces, IP addresses, MAC addresses, link status, active connection count
+- **Battery** — charge %, plugged-in status, time remaining (laptops)
+- **OS / BIOS** — OS version/build, architecture, hostname, motherboard model, BIOS version (Windows)
+- **Uptime** — boot time and time since boot
+- **Export** — save the full report as `.json`, `.csv`, or `.txt`
 
 ---
 
-##  Getting Started
+## Prerequisites
 
-To get a copy of this project up and running on your local machine, follow these steps:
+- Python 3.0+
 
-###  Installation
+---
 
-1. **Clone this repository** to your local machine:
+## Getting Started
+
+### Installation
+
+1. **Clone this repository:**
 
    ```bash
    git clone https://github.com/Bencantest/SysInfoRetriever.git
+   ```
 
-2.  **Navigate to the project directory:**
+2. **Navigate to the project directory:**
 
-     cd SysInfoRetriever
+   ```bash
+   cd SysInfoRetriever
+   ```
 
-3.  **Install required libraries:**   
-    pip install -r requirements.txt
+3. **Install required libraries:**
 
-4.  **Usage**
-  To run the program, execute the following command from the project directory:
-      python get_sys_info.py
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-5. **⚠️ Note**
+### Usage
 
-This program utilizes Windows-specific libraries (specifically wmi) to retrieve detailed GPU and RAM speed information.
+Print a full report to the terminal:
 
-On non-Windows systems, the script falls back to using psutil to retrieve basic CPU and RAM information.
+```bash
+python SysInfoRetriever.py
+```
 
-GPU details will not be available on non-Windows platforms.
+Export the report to a file (format is inferred from the extension):
 
+```bash
+python SysInfoRetriever.py --export report.json
+python SysInfoRetriever.py --export report.csv
+python SysInfoRetriever.py --export report.txt
+```
 
+---
 
-      
+## ⚠️ Notes
+
+- On non-Windows systems, `wmi` isn't imported at all, and the script uses
+  `psutil`/`platform` for everything. GPU model/VRAM, per-stick RAM speed, and
+  motherboard/BIOS detail remain Windows-only since there's no cross-platform
+  equivalent of WMI.
+- Reading active network connections may require elevated privileges
+  (Administrator on Windows, root on Linux/macOS) — if permission is denied,
+  the script reports that instead of crashing.
+- SSD/HDD detection on Linux reads `/sys/block/*/queue/rotational`; on Windows
+  it uses `Win32_DiskDrive.MediaType` via WMI. Detection can be "Unknown" on
+  unusual storage setups (e.g. virtual disks, network drives).
